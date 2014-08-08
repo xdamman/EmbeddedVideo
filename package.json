@@ -1,0 +1,29 @@
+{
+  "name": "EmbeddedVideo",
+  "version": "0.0.0",
+  "description": "Twitter bot that automatically tweets the embedded video so that you can directly see it in your twitter stream.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "keywords": [
+    "twitter",
+    "video",
+    "youtube",
+    "vimeo"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.40.0",
+    "twitter": "^0.2.9",
+    "entities": "^1.1.1"
+  },
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "mocha": "^1.21.4"
+  }
+}
