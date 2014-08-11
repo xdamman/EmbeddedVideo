@@ -50,10 +50,10 @@ function processTweet(tweet) {
       title = title.replace(" - YouTube","");
       title = title.replace(" on Vimeo","");
 
-      var via = "@"+tweet.user.screen_name;
+      var via = "embedded on @"+tweet.user.screen_name;
       var text = title.smart_truncate(119-via.length);
 
-      text = via + " " +text + " " + videoUrl
+      text = text + " " + via + " " + videoUrl
 
       console.log("Sending tweet to ", tweet.id_str, text);
       sendTweetReply(tweet.id_str, text, function(err, result) {
