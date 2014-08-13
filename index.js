@@ -55,6 +55,10 @@ function processTweet(tweet) {
 
       text = via + " " + text + " " + videoUrl
 
+      var hashtag = "#SavedYouAClick";
+
+      if((text+hashtag).length < 119) text+= " " + hashtag;
+
       console.log("Sending tweet to ", tweet.id_str, text);
       sendTweetReply(tweet.id_str, text, function(err, result) {
         console.log("Tweet sent", err);
