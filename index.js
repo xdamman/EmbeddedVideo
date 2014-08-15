@@ -72,7 +72,11 @@ twit.stream('user', function(stream) {
 
   stream.on('data', function(data) {
 
-    var tweet = data.retweeted_status || data;
+    // We don't process retweets, just interested in original tweets
+    // var tweet = data.retweeted_status || data;
+    if(data.retweeted_status) return;
+
+    var tweet = data;
 
     console.log("\n-----------------------------------------------------------------------------\n");
 
