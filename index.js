@@ -77,7 +77,7 @@ twit.stream('user', function(stream) {
     if(data.retweeted_status) return;
 
     // We don't process tweets that mention @EmbeddedVideo
-    if(data && data.text && data.text.match(/@EmbeddedVideo/i)) return;
+    if(data.text.match(/@EmbeddedVideo/i)) return;
 
     var tweet = data;
 
