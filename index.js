@@ -28,10 +28,6 @@ function processTweet(tweet) {
 
   if(!tweet.entities) return;
   if(!tweet.entities.urls || tweet.entities.urls.length == 0) return;
-  if(tweet.user.screen_name == 'EmbeddedVideo') { 
-    console.log("tweet from EmbeddedVideo: ", tweet);
-    return;
-  }
 
   var url = tweet.entities.urls[0].expanded_url;
 
@@ -75,6 +71,9 @@ twit.stream('user', function(stream) {
     // We don't process retweets, just interested in original tweets
     // var tweet = data.retweeted_status || data;
     if(data.retweeted_status) return;
+
+    // We don't process tweets that mention @EmbeddedVideo
+    if(data.text.match(/@EmbeddedVideo/i)) return;
 
     var tweet = data;
 
