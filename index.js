@@ -78,9 +78,13 @@ twit.stream('user', function(stream) {
 
     var tweet = data;
 
-    console.log("\n-----------------------------------------------------------------------------\n");
 
     if(tweet.user) {
+      
+      // We don't process tweets that mention @EmbeddedVideo
+      if(tweet.text && tweet.text.match(/@EmbeddedVideo/i)) return;
+
+      console.log("\n-----------------------------------------------------------------------------\n");
       console.log("Tweet from : "+tweet.user.screen_name, tweet.text);
       processTweet(tweet);
     }
