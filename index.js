@@ -28,10 +28,12 @@ function processTweet(tweet) {
 
   if(!tweet.entities) return;
   if(!tweet.entities.urls || tweet.entities.urls.length == 0) return;
-  if(tweet.user.screen_name == 'EmbeddedVideo') { 
-    console.log("tweet from EmbeddedVideo: ", tweet);
-    return;
-  }
+
+  // We don't process tweets from @EmbeddedVideo
+  if(tweet.user.screen_name == 'EmbeddedVideo') return;
+
+  // We don't process tweets that mention @EmbeddedVideo
+  if(tweet.text && tweet.text.match(/@EmbeddedVideo/i)) return;
 
   var url = tweet.entities.urls[0].expanded_url;
 
@@ -78,12 +80,7 @@ twit.stream('user', function(stream) {
 
     var tweet = data;
 
-
     if(tweet.user) {
-      
-      // We don't process tweets that mention @EmbeddedVideo
-      if(tweet.text && tweet.text.match(/@EmbeddedVideo/i)) return;
-
       console.log("\n-----------------------------------------------------------------------------\n");
       console.log("Tweet from : "+tweet.user.screen_name, tweet.text);
       processTweet(tweet);
