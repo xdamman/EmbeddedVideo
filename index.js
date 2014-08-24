@@ -24,6 +24,19 @@ var sendTweetReply = function(in_reply_to_status_id, text, cb) {
     });
   }
 
+function tweetContainsVideoUrl(tweet) {
+
+  if(!tweet.entities || !tweet.entities.urls) return false;
+
+  for(var i=0;i<tweet.entities.urls.length;i++) {
+    var url = tweet.entities.urls[i];
+    if (url.expanded_url.match(/\/\/(youtube.com|vine.co|vimeo.com)\//i)) return true;
+  }
+
+  return false;
+
+}
+
 function processTweet(tweet) {
 
   if(!tweet.entities) return;
@@ -34,6 +47,9 @@ function processTweet(tweet) {
 
   // We don't process tweets that mention @EmbeddedVideo
   if(tweet.text && tweet.text.match(/@EmbeddedVideo/i)) return;
+
+  // We don't process tweets that already tweet a youtube/vine/vimeo video
+  if(tweetContainsVideoUrl(tweet)) return;
 
   var url = tweet.entities.urls[0].expanded_url;
 
