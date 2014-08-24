@@ -29,6 +29,15 @@ describe("Vimeo", function() {
   });
 });
 
+describe("Vine", function() {
+  it('gets the video url from the html', function() {
+    utils.getHTML("http://mashable.com/2014/08/23/iggy-azalea-falls-vmas-fancy", function(e, html) {
+      var videoUrl = utils.getVideoUrl(html);
+      expect(videoUrl).to.equal("https://vine.co/v/MLjuHLXUEmM");
+    });
+  });
+});
+
 describe("YouTUBE", function() {
   it('gets the video url from the html', function(done) {
     utils.getHTML("http://www.theverge.com/2014/8/7/5977917/ronaldo-puts-his-face-behind-absurd-japanese-smile-enhancer", function(e, html) {
