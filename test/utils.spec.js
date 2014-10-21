@@ -55,5 +55,13 @@ describe("YouTUBE", function() {
     });
   });
 
+  it('gets the video url from mashable', function(done) {
+    utils.getHTML("http://on.mash.to/1Dv1Rj4", function(e, html) {
+      var videoUrl = utils.getVideoUrl(html);
+      expect(videoUrl).to.equal("https://youtube.com/watch?v=oFK4BIsULKQ");
+      done();
+    });
+  });
+
 
 });
