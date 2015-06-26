@@ -4,16 +4,26 @@ var twitter = require('twitter')
   , utils = require('./lib/utils')
   ;
 
+
+var settings = {
+  "twitter": {
+    "consumer_key": process.env.TWITTER_CONSUMER_KEY,
+    "consumer_secret": process.env.TWITTER_CONSUMER_SECRET,
+    "access_token_key": process.env.TWITTER_ACCESS_TOKEN_KEY,
+    "access_token_secret": process.env.TWITTER_ACCESS_TOKEN_SECRET
+  }
+};
+
 var twit = new twitter(settings.twitter);
 
 
 var sendTweetReply = function(in_reply_to_status_id, text, cb) {
     var form, r;
     var oauthKeys = {
-      "consumer_key": process.env.TWITTER_CONSUMER_KEY,
-      "consumer_secret": process.env.TWITTER_CONSUMER_SECRET,
-      "token": process.env.TWITTER_ACCESS_TOKEN_KEY,
-      "token_secret": process.env.TWITTER_ACCESS_TOKEN_SECRET
+      "consumer_key": settings.twitter.consumer_key, 
+      "consumer_secret": settings.twitter.consumer_secret,
+      "token": settings.twitter.access_token_key,
+      "token_secret": settings.twitter.access_token_secret
     };
     r = request.post("https://api.twitter.com/1.1/statuses/update.json", {oauth: oauthKeys}, cb);
     form = r.form();
@@ -68,7 +78,7 @@ function processTweet(tweet) {
       title = title.replace(" - YouTube","");
       title = title.replace(" on Vimeo","");
 
-      var via = "On @"+tweet.user.screen_name+":";
+      var via = "@"+tweet.user.screen_name+":";
       var text = title.smart_truncate(119-via.length);
 
       text = via + " " + text + " " + videoUrl
