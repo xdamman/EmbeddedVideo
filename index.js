@@ -2,7 +2,7 @@ var twitter = require('twitter')
   , env = process.env.NODE_ENV || "development"
   , request = require('request')
   , utils = require('./lib/utils')
-  , settings = require('./settings.'+env+'.json');
+  ;
 
 var twit = new twitter(settings.twitter);
 
@@ -10,10 +10,10 @@ var twit = new twitter(settings.twitter);
 var sendTweetReply = function(in_reply_to_status_id, text, cb) {
     var form, r;
     var oauthKeys = {
-      consumer_key: settings.twitter.consumer_key,
-      consumer_secret: settings.twitter.consumer_secret,
-      token: settings.twitter.access_token_key,
-      token_secret: settings.twitter.access_token_secret
+      "consumer_key": process.env.TWITTER_CONSUMER_KEY,
+      "consumer_secret": process.env.TWITTER_CONSUMER_SECRET,
+      "token": process.env.TWITTER_ACCESS_TOKEN_KEY,
+      "token_secret": process.env.TWITTER_ACCESS_TOKEN_SECRET
     };
     r = request.post("https://api.twitter.com/1.1/statuses/update.json", {oauth: oauthKeys}, cb);
     form = r.form();
